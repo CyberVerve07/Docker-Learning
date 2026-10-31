@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    POM = Project Object Model
+    This file is like the "settings" file for Maven.
+    Maven reads this file to know:
+      - What your project is called
+      - What libraries (dependencies) your project needs
+      - How to build your project
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        PARENT: Spring Boot provides a "parent" pom that manages
+        all versions of libraries automatically so we don't have to.
+        Think of it like inheriting default settings from a parent class in Java.
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.0</version>
+        <relativePath/>
+    </parent>
+
+    <!-- Your project's identity (like a package name for your project) -->
+    <groupId>com.learning</groupId>
+    <artifactId>spring-docker-app</artifactId>
+    <version>1.0.0</version>
+    <name>spring-docker-app</name>
+    <description>Simple Spring Boot App for Docker Learning</description>
+
+    <!-- We are building a JAR file (a runnable Java archive) -->
+    <packaging>jar</packaging>
+
+    <properties>
+        <!-- Use Java 17 (modern Long-Term Support version) -->
+        <java.version>17</java.version>
+    </properties>
+
+    <!--
+        DEPENDENCIES: External libraries your project needs.
+        Maven will automatically download these from the internet.
+        Think of it like importing packages, but Maven handles the download.
+    -->
+    <dependencies>
+
+        <!--
+            spring-boot-starter-web:
+            This single dependency pulls in everything needed to build a web app:
+            - Tomcat (the built-in web server)
+            - Spring MVC (for building REST APIs)
+            - Jackson (for converting Java objects ↔ JSON automatically)
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--
+            spring-boot-starter-actuator:
+            Gives you FREE endpoints to monitor your app health.
+            Example: http://localhost:8080/actuator/health → tells if app is running
+            Very useful in Docker/production environments.
+        -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!--
+                This Maven plugin knows how to build Spring Boot apps.
+                It packages everything (your code + all libraries) into
+                one single "fat JAR" file that can run anywhere.
+                Command: mvn package  → creates the fat JAR
+            -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+
