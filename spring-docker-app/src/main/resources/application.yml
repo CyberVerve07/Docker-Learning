@@ -1,52 +1,23 @@
-# ============================================================
-#  application.yml — Spring Boot Configuration File
-# ============================================================
-#
-#  This is the config file for your Spring Boot app.
-#  It uses YAML format (indentation-based, no brackets like JSON).
-#
-#  YAML Syntax Rules:
-#    - Use spaces (NOT tabs) for indentation
-#    - key: value pairs
-#    - Nested keys use indentation (like Python)
-#
-#  Spring Boot reads this file automatically at startup.
-# ============================================================
 
-# ---- Server Configuration ----
+# server port
 server:
-  port: 8080   # The port your app will run on (like http://localhost:8080)
+  port: 8080
 
-# ---- Your Custom App Properties ----
-# These are YOUR custom values — you can name them anything.
-# In the controller, we read these using @Value("${app.name}") etc.
+# custom app values — read in controller using @Value("${app.name}")
 app:
   name: spring-docker-app
   version: 1.0.0
 
-# ---- Spring Boot Settings ----
 spring:
   application:
-    name: spring-docker-app   # App name used in logs
+    name: spring-docker-app
 
-# ---- Actuator Configuration ----
-# Actuator provides health-check endpoints for free.
-# Very important in Docker — Docker can ping /actuator/health
-# to know if your container is alive.
+# actuator → free health check endpoint at /actuator/health
 management:
   endpoints:
     web:
       exposure:
-        include: health, info   # Expose only these actuator endpoints
+        include: health, info
   endpoint:
     health:
-      show-details: always      # Show full health details in response
-
-# ---- Logging Configuration ----
-logging:
-  level:
-    root: INFO                          # Default log level
-    com.learning.app: DEBUG             # Show DEBUG logs for your own code
-  pattern:
-    console: "%d{HH:mm:ss} [%level] %logger{20} - %msg%n"
-
+      show-details: always
